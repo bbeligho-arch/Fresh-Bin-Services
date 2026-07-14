@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fresh Bin Services — Cleaner Bins. Fresher Homes.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1A33;
+    --navy-2:#122A50;
+    --navy-3:#0E2144;
+    --green:#7CB82F;
+    --green-dark:#5C9422;
+    --green-glow:#A6DE4D;
+    --blue:#2E86DE;
+    --blue-deep:#1B5FB0;
+    --white:#F6F9FC;
+    --ink:#0B1A33;
+    --muted:#A9B8D4;
+    --card:#FFFFFF;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--navy);
+    color:var(--white);
+    font-family:'Work Sans',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Archivo Black',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    line-height:1.05;
+    margin:0;
+  }
+  .mono{font-family:'Space Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'Space Mono',monospace;
+    font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;
+    color:var(--green-glow);
+    margin-bottom:14px;
+  }
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--green-glow);display:inline-block;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(11,26,51,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(124,184,47,0.25);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;max-width:1180px;margin:0 auto;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Archivo Black';font-size:1.05rem;text-transform:uppercase;}
+  .logo .leaf{width:26px;height:26px;flex-shrink:0;}
+  .logo .b{color:var(--green);}
+  .nav-links{display:flex;align-items:center;gap:28px;font-weight:600;font-size:0.92rem;}
+  .nav-links a{opacity:0.85;transition:opacity .2s;}
+  .nav-links a:hover{opacity:1;color:var(--green-glow);}
+  .nav-cta{
+    background:var(--green);color:var(--navy);
+    padding:10px 20px;border-radius:999px;font-weight:800;
+    font-size:0.88rem;transition:transform .15s, background .2s;
+    border:none;cursor:pointer;
+  }
+  .nav-cta:hover{background:var(--green-glow);transform:translateY(-1px);}
+  .burger{display:none;background:none;border:none;color:var(--white);font-size:1.6rem;cursor:pointer;}
+  @media(max-width:800px){
+    .nav-links{position:fixed;top:64px;left:0;right:0;background:var(--navy-2);flex-direction:column;
+      padding:20px 24px;gap:18px;transform:translateY(-130%);transition:transform .25s ease;border-bottom:1px solid rgba(124,184,47,0.25);}
+    .nav-links.open{transform:translateY(0);}
+    .burger{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    padding:72px 0 60px;
+    background:
+      radial-gradient(ellipse at 80% 10%, rgba(46,134,222,0.25), transparent 55%),
+      radial-gradient(ellipse at 10% 90%, rgba(124,184,47,0.18), transparent 50%),
+      var(--navy);
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:40px;align-items:center;}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+  .hero h1{font-size:clamp(2.4rem,5.4vw,4rem);}
+  .hero h1 .accent{color:var(--green);}
+  .hero p.lead{font-size:1.12rem;color:var(--muted);max-width:480px;margin:20px 0 30px;line-height:1.6;}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 26px;border-radius:999px;font-weight:800;
+    font-size:0.95rem;transition:transform .15s ease, box-shadow .2s ease;
+    border:2px solid transparent;cursor:pointer;
+  }
+  .btn-primary{background:var(--green);color:var(--navy);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(124,184,47,0.35);}
+  .btn-outline{border-color:rgba(255,255,255,0.35);color:var(--white);}
+  .btn-outline:hover{border-color:var(--blue);background:rgba(46,134,222,0.12);transform:translateY(-2px);}
+  .hero-badge{
+    margin-top:28px;display:inline-flex;align-items:center;gap:10px;
+    background:rgba(124,184,47,0.14);border:1px solid rgba(124,184,47,0.4);
+    padding:10px 16px;border-radius:999px;font-size:0.85rem;color:var(--green-glow);font-weight:600;
+  }
+
+  /* ---------- SIGNATURE BIN ART ---------- */
+  .bin-stage{position:relative;display:flex;align-items:center;justify-content:center;min-height:420px;}
+  .bin-stage svg{width:100%;max-width:340px;overflow:visible;}
+  .drop{animation:fall 1.8s linear infinite;opacity:0;}
+  .drop:nth-child(1){animation-delay:0s;}
+  .drop:nth-child(2){animation-delay:.4s;}
+  .drop:nth-child(3){animation-delay:.8s;}
+  .drop:nth-child(4){animation-delay:1.2s;}
+  @keyframes fall{
+    0%{transform:translateY(-10px);opacity:0;}
+    15%{opacity:1;}
+    85%{opacity:1;}
+    100%{transform:translateY(70px);opacity:0;}
+  }
+  .grime{animation:dissolve 5s ease-in-out infinite;}
+  @keyframes dissolve{
+    0%,100%{opacity:0.55;}
+    50%{opacity:0;}
+  }
+  .sparkle{animation:twinkle 2.6s ease-in-out infinite;}
+  .sparkle:nth-child(2){animation-delay:0.9s;}
+  .sparkle:nth-child(3){animation-delay:1.7s;}
+  @keyframes twinkle{
+    0%,100%{opacity:0;transform:scale(0.6);}
+    50%{opacity:1;transform:scale(1);}
+  }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{padding:88px 0;}
+  .section-head{max-width:640px;margin-bottom:48px;}
+  .section-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);}
+  .section-head p{color:var(--muted);margin-top:14px;font-size:1.05rem;line-height:1.6;}
+
+  /* ---------- TRUST BAR ---------- */
+  .trust-bar{
+    background:var(--navy-3);
+    padding:35px 0;
+    border-top:1px solid rgba(124,184,47,.2);
+    border-bottom:1px solid rgba(124,184,47,.2);
+  }
+  .trust-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    text-align:center;
+  }
+  .trust-grid h2{
+    font-size:2rem;
+    color:var(--green);
+  }
+  .trust-grid p{
+    color:var(--muted);
+    margin-top:5px;
+    font-weight:600;
+  }
+  @media(max-width:700px){
+    .trust-grid{
+      grid-template-columns:repeat(2,1fr);
+    }
+  }
+
+  /* ---------- SERVICES ---------- */
+  .services{background:var(--navy-2);}
+  .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:800px){.service-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:520px){.service-grid{grid-template-columns:1fr;}}
+  .service-card{
+    background:var(--navy-3);border:1px solid rgba(124,184,47,0.2);
+    border-radius:var(--radius);padding:26px 22px;transition:border-color .2s, transform .2s;
+  }
+  .service-card:hover{border-color:var(--green);transform:translateY(-3px);}
+  .service-card .check{
+    width:36px;height:36px;border-radius:50%;background:rgba(124,184,47,0.15);
+    display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:var(--green);
+  }
+  .service-card h3{font-family:'Work Sans';font-weight:700;font-size:1.02rem;text-transform:none;letter-spacing:0;margin-bottom:6px;}
+  .service-card p{color:var(--muted);font-size:0.92rem;line-height:1.5;margin:0;}
+
+  /* ---------- PRICING ---------- */
+  .pricing .section-head{margin-left:auto;margin-right:auto;text-align:center;}
+  .pricing .section-head p{margin-left:auto;margin-right:auto;}
+  .pricing-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:46px;}
+  @media(max-width:900px){.pricing-cards{grid-template-columns:1fr 1fr;}}
+  @media(max-width:520px){.pricing-cards{grid-template-columns:1fr;}}
+  .price-card{
+    background:var(--card);color:var(--ink);border-radius:var(--radius);
+    padding:26px 20px;text-align:center;position:relative;
+    border:2px solid transparent;
+  }
+  .price-card.best{border-color:var(--green);}
+  .price-card .tag{
+    position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:var(--navy);color:var(--green-glow);font-size:0.7rem;font-weight:800;
+    padding:5px 12px;border-radius:999px;letter-spacing:1px;text-transform:uppercase;
+    font-family:'Space Mono',monospace;white-space:nowrap;
+  }
+  .price-card .label{font-weight:800;font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;color:#5A6B8C;}
+  .price-card .amount{font-family:'Archivo Black';font-size:2.6rem;color:var(--navy);margin:10px 0 4px;}
+  .price-card .amount span{font-size:1.1rem;vertical-align:top;}
+  .price-card .note{font-size:0.85rem;color:var(--green-dark);font-weight:700;}
+
+  .recurring{
+    background:var(--navy-3);border:1px solid rgba(46,134,222,0.3);
+    border-radius:var(--radius);padding:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:26px;
+  }
+  @media(max-width:700px){.recurring{grid-template-columns:1fr;}}
+  .recurring .item{text-align:center;}
+  .recurring .item .n{font-family:'Archivo Black';font-size:2rem;color:var(--blue);}
+  .recurring .item .l{font-size:0.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+
+  .special{
+    background:linear-gradient(120deg,var(--green-dark),var(--green));
+    color:var(--navy);border-radius:var(--radius);padding:30px 32px;
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;
+  }
+  .special h3{font-size:1.5rem;}
+  .special ul{margin:10px 0 0;padding:0;list-style:none;font-weight:700;font-size:0.95rem;}
+  .special li{margin-bottom:4px;}
+  .special .go-btn{background:var(--navy);color:var(--white);}
+
+  /* ---------- WHY US ---------- */
+  .why{background:var(--navy-2);}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  @media(max-width:800px){.why-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:480px){.why-grid{grid-template-columns:1fr;}}
+  .why-card{text-align:center;padding:10px;}
+  .why-card .icon{
+    width:58px;height:58px;border-radius:50%;border:2px solid var(--green);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 14px;color:var(--green);
+  }
+  .why-card h3{font-family:'Work Sans';font-weight:700;font-size:1rem;text-transform:none;letter-spacing:0;margin-bottom:6px;}
+  .why-card p{color:var(--muted);font-size:0.88rem;line-height:1.5;}
+
+  /* ---------- ABOUT ---------- */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+  @media(max-width:850px){.about{grid-template-columns:1fr;}}
+  .about-card{
+    background:var(--navy-3);border-radius:var(--radius);border:1px solid rgba(46,134,222,0.3);
+    padding:30px;
+  }
+  .about-row{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+  .about-row:last-child{border-bottom:none;}
+  .about-row .ic{color:var(--blue);flex-shrink:0;}
+  .about-row .k{font-size:0.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--green-glow);font-weight:700;}
+  .about-row .v{font-weight:700;font-size:1.05rem;}
+
+  /* ---------- BOOKING ---------- */
+  .book{background:var(--navy-2);}
+  .book-wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+  @media(max-width:900px){.book-wrap{grid-template-columns:1fr;}}
+  .book-copy p{color:var(--muted);line-height:1.7;font-size:1.02rem;}
+  .book-copy .pull{
+    border-left:3px solid var(--green);padding-left:18px;margin:22px 0;color:var(--white);
+    font-size:1.05rem;font-style:italic;
+  }
+  .quick-contact{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap;}
+
+  form.book-form{
+    background:var(--card);color:var(--ink);border-radius:var(--radius);padding:30px;
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  }
+  form.book-form .full{grid-column:1 / -1;}
+  @media(max-width:520px){form.book-form{grid-template-columns:1fr;}}
+  form.book-form label{font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#425073;display:block;margin-bottom:6px;}
+  form.book-form input, form.book-form select, form.book-form textarea{
+    width:100%;padding:12px 14px;border-radius:8px;border:1.5px solid #D8E0EE;
+    font-family:'Work Sans';font-size:0.96rem;background:#F8FAFD;color:var(--ink);
+  }
+  form.book-form input:focus, form.book-form select:focus, form.book-form textarea:focus{
+    outline:none;border-color:var(--green);background:#fff;
+  }
+  form.book-form textarea{resize:vertical;min-height:80px;}
+  .submit-row{grid-column:1/-1;display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;}
+  .submit-row .btn-primary{border:none;font-size:1rem;flex:1;justify-content:center;min-width:200px;}
+  .submit-row .btn-primary:disabled{opacity:0.7;cursor:not-allowed;transform:none;box-shadow:none;}
+  .form-note{grid-column:1/-1;font-size:0.8rem;color:#7284A6;margin-top:-6px;}
+  #confirm{
+    grid-column:1/-1;background:#EEF7E3;border:1px solid var(--green);color:var(--green-dark);
+    padding:14px 16px;border-radius:10px;font-weight:600;font-size:0.92rem;display:none;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq{background:var(--navy);}
+  .faq-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  .faq-card{
+    background:var(--navy-3);
+    padding:25px;
+    border-radius:var(--radius);
+    border:1px solid rgba(124,184,47,.2);
+  }
+  .faq-card h3{
+    font-family:'Work Sans';
+    text-transform:none;
+    font-size:1.1rem;
+    margin-bottom:10px;
+  }
+  .faq-card p{
+    color:var(--muted);
+    line-height:1.5;
+  }
+  @media(max-width:800px){
+    .faq-grid{
+      grid-template-columns:1fr;
+    }
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--navy-3);padding:44px 0 26px;border-top:1px solid rgba(124,184,47,0.2);}
+  .foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;margin-bottom:30px;}
+  .foot-brand{max-width:320px;}
+  .foot-brand p{color:var(--muted);font-size:0.9rem;line-height:1.6;margin-top:10px;}
+  .foot-col h4{font-size:0.8rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--green-glow);margin-bottom:12px;}
+  .foot-col a, .foot-col p{display:block;color:var(--muted);font-size:0.92rem;margin-bottom:8px;}
+  .foot-col a:hover{color:var(--white);}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;font-size:0.8rem;color:#5A6B8C;text-align:center;}
+
+  /* ---------- FLOATING CALL BUTTON ---------- */
+  .mobile-call{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:60;
+    display:none;
+    align-items:center;
+    gap:8px;
+    background:var(--green);
+    color:var(--navy);
+    font-weight:800;
+    font-size:0.92rem;
+    padding:14px 20px;
+    border-radius:999px;
+    box-shadow:0 10px 26px rgba(0,0,0,0.35);
+  }
+  @media(max-width:800px){
+    .mobile-call{display:inline-flex;}
+  }
+
+  ::selection{background:var(--green);color:var(--navy);}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">
+      <svg class="leaf" viewBox="0 0 24 24" fill="none"><path d="M4 20C4 12 10 4 20 4C20 14 12 20 4 20Z" fill="#7CB82F"/><path d="M4 20C8 16 12 12 20 4" stroke="#0B1A33" stroke-width="1.2"/></svg>
+      Fresh <span class="b">Bin</span> Services
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a href="#book" class="nav-cta">Book Now</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Serving Massachusetts</div>
+      <h1>Cleaner bins.<br><span class="accent">Fresher</span> homes.</h1>
+      <p class="lead">We scrub, sanitize, and deodorize your trash and recycle bins curbside — eco-friendly, high-pressure, and done before you even notice we were there.</p>
+      <div class="hero-ctas">
+        <a href="#book" class="btn btn-primary">Get Your First Cleaning For $20</a>
+        <a href="tel:7745069916" class="btn btn-outline">📞 Call or Text (774) 506-9916</a>
+      </div>
+      <div class="hero-badge">🔥 Limited Offer — First Bin Cleaning Only $20</div>
+    </div>
+    <div class="bin-stage">
+      <svg viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="150" cy="322" rx="90" ry="12" fill="#000" opacity="0.25"/>
+        <rect x="70" y="70" width="160" height="230" rx="18" fill="#16305C"/>
+        <rect x="70" y="70" width="160" height="230" rx="18" fill="none" stroke="#2E86DE" stroke-opacity="0.4" stroke-width="2"/>
+        <rect x="58" y="46" width="184" height="34" rx="10" fill="#0E2144"/>
+        <rect x="120" y="30" width="60" height="18" rx="6" fill="#0E2144"/>
+        <circle cx="100" cy="290" r="16" fill="#0B1A33"/>
+        <circle cx="200" cy="290" r="16" fill="#0B1A33"/>
+        <g class="grime">
+          <circle cx="105" cy="130" r="6" fill="#3B4A2E"/>
+          <circle cx="180" cy="160" r="8" fill="#3B4A2E"/>
+          <circle cx="140" cy="210" r="5" fill="#3B4A2E"/>
+          <circle cx="200" cy="240" r="7" fill="#3B4A2E"/>
+        </g>
+        <text x="150" y="150" text-anchor="middle" font-family="Archivo Black" font-size="20" fill="#7CB82F">FRESH</text>
+        <text x="150" y="175" text-anchor="middle" font-family="Archivo Black" font-size="20" fill="#F6F9FC">BIN</text>
+        <line x1="150" y1="190" x2="150" y2="200" stroke="#2E86DE" stroke-width="2"/>
+        <text x="150" y="215" text-anchor="middle" font-family="Space Mono" font-size="10" fill="#A9B8D4" letter-spacing="2">SERVICES</text>
+        <g stroke="#7CDBFF" stroke-width="3" stroke-linecap="round">
+          <line class="drop" x1="250" y1="60" x2="240" y2="90"/>
+          <line class="drop" x1="255" y1="60" x2="245" y2="90"/>
+          <line class="drop" x1="245" y1="55" x2="235" y2="85"/>
+          <line class="drop" x1="260" y1="65" x2="250" y2="95"/>
+        </g>
+        <g fill="#A6DE4D">
+          <path class="sparkle" d="M235 100 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z"/>
+          <path class="sparkle" d="M90 100 l2.5 6.5 6.5 2.5 -6.5 2.5 -2.5 6.5 -2.5 -6.5 -6.5 -2.5 6.5 -2.5 z"/>
+          <path class="sparkle" d="M195 60 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2 z"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="trust-bar">
+  <div class="wrap trust-grid">
+    <div>
+      <h2>500+</h2>
+      <p>Bins Cleaned</p>
+    </div>
+    <div>
+      <h2>100%</h2>
+      <p>Customer Satisfaction</p>
+    </div>
+    <div>
+      <h2>24HR</h2>
+      <p>Fast Response</p>
+    </div>
+    <div>
+      <h2>5★</h2>
+      <p>Local Service</p>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">What we clean</div>
+      <h2>We clean & sanitize</h2>
+      <p>Every visit is a full curbside service — pressure-washed, sanitized, and deodorized, with products safe for your family, pets, and lawn.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card"><div class="check">✓</div><h3>Trash cans</h3><p>Deep-cleaned inside and out, every pickup cycle.</p></div>
+      <div class="service-card"><div class="check">✓</div><h3>Recycle bins</h3><p>Sticky, smelly recycling gets the same treatment.</p></div>
+      <div class="service-card"><div class="check">✓</div><h3>Eliminates bacteria & odors</h3><p>High-pressure hot water breaks down what a hose can't.</p></div>
+      <div class="service-card"><div class="check">✓</div><h3>Eco-friendly products</h3><p>Biodegradable cleaners, safe for kids and pets.</p></div>
+      <div class="service-card"><div class="check">✓</div><h3>Reliable & affordable</h3><p>Simple flat pricing, no hidden fees, no contracts.</p></div>
+      <div class="service-card"><div class="check">✓</div><h3>Curbside convenience</h3><p>We clean on your trash day — you never lift a finger.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Simple, affordable pricing</div>
+      <h2>Pick your plan</h2>
+      <p>One-time or recurring — every cleaning includes sanitizing and deodorizing at no extra cost.</p>
+    </div>
+
+    <div class="pricing-cards">
+      <div class="price-card">
+        <div class="label">1 Bin</div>
+        <div class="amount"><span>$</span>25</div>
+        <div class="note">One-time cleaning</div>
+      </div>
+      <div class="price-card">
+        <div class="tag">Save $10</div>
+        <div class="label">2 Bins</div>
+        <div class="amount"><span>$</span>40</div>
+        <div class="note">One-time cleaning</div>
+      </div>
+      <div class="price-card best">
+        <div class="tag">Best Value</div>
+        <div class="label">3 Bins</div>
+        <div class="amount"><span>$</span>55</div>
+        <div class="note">One-time cleaning</div>
+      </div>
+      <div class="price-card">
+        <div class="label">Each Additional</div>
+        <div class="amount"><span>$</span>15</div>
+        <div class="note">Per extra bin</div>
+      </div>
+    </div>
+
+    <div class="recurring">
+      <div class="item"><div class="n">$20</div><div class="l">Monthly · per bin</div></div>
+      <div class="item"><div class="n">$18</div><div class="l">Every 2 weeks · per bin</div></div>
+      <div class="item"><div class="n">$25</div><div class="l">One-time · per bin</div></div>
+    </div>
+
+    <div class="special">
+      <div>
+        <h3>Grand Opening Special</h3>
+        <ul>
+          <li>✓ 1 Bin — $20</li>
+          <li>✓ 2 Bins — $35</li>
+          <li>✓ Free deodorizer with every cleaning</li>
+        </ul>
+      </div>
+      <a href="#book" class="btn go-btn">Claim This Deal</a>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <div class="section-head" style="margin-left:auto;margin-right:auto;text-align:center;">
+      <div class="eyebrow" style="justify-content:center;">Why homeowners choose us</div>
+      <h2>A clean bin is a healthy home</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="icon">🌿</div><h3>Eco-friendly products</h3><p>Safe for your family and the environment.</p></div>
+      <div class="why-card"><div class="icon">🛡️</div><h3>Professional equipment</h3><p>High-pressure cleaning for the best results.</p></div>
+      <div class="why-card"><div class="icon">✨</div><h3>Sparkling clean</h3><p>We leave your bins fresh and sanitized.</p></div>
+      <div class="why-card"><div class="icon">👍</div><h3>100% satisfaction guaranteed</h3><p>Your satisfaction is our priority.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap about" id="about">
+  <div>
+    <div class="eyebrow">About Fresh Bin Services</div>
+    <h2 style="font-size:clamp(1.8rem,3.4vw,2.4rem);">We make dirty bins fresh again</h2>
+    <p style="color:var(--muted);margin-top:16px;line-height:1.7;font-size:1.02rem;">
+      Fresh Bin Services is a locally owned, curbside bin-cleaning company serving homes across Massachusetts.
+      We show up on your regular trash day, blast away grime with eco-friendly, high-pressure cleaning, and
+      leave your bins smelling like nothing ever went in them.
+    </p>
+  </div>
+  <div class="about-card">
+    <div class="about-row">
+      <div class="ic">👤</div>
+      <div><div class="k">Owner</div><div class="v">Belighi</div></div>
+    </div>
+    <div class="about-row">
+      <div class="ic">📞</div>
+      <div><div class="k">Phone</div><div class="v mono">(774) 506-9916</div></div>
+    </div>
+    <div class="about-row">
+      <div class="ic">📍</div>
+      <div><div class="k">Serving</div><div class="v">Massachusetts</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <div class="wrap book-wrap">
+    <div class="book-copy">
+      <div class="eyebrow">Book your appointment</div>
+      <h2 style="font-size:clamp(1.8rem,3.2vw,2.3rem);">Let us handle the dirty work</h2>
+      <p>
+        You already deal with enough on trash day. There's no reason your bins should be the thing that smells up
+        your garage, draws flies to your driveway, or embarrasses you in front of guests. Fresh Bin Services takes
+        that job off your plate — permanently. One quick booking, and your bins go on a recurring cleaning schedule
+        that runs quietly in the background of your life.
+      </p>
+      <p class="pull">A clean bin is a healthy home — and it starts with one appointment.</p>
+      <p>
+        Fill out the form and we'll confirm your first cleaning date within one business day, or reach out directly
+        below for a faster response.
+      </p>
+      <div class="quick-contact">
+        <a href="tel:7745069916" class="btn btn-primary">📞 Call Now</a>
+        <a href="sms:7745069916" class="btn btn-outline">💬 Text Us</a>
+      </div>
+    </div>
+
+    <form class="book-form" id="bookForm">
+      <div>
+        <label for="name">Full name</label>
+        <input type="text" id="name" required placeholder="Jane Smith">
+      </div>
+      <div>
+        <label for="phone">Phone number</label>
+        <input type="tel" id="phone" required placeholder="(555) 123-4567">
+      </div>
+      <div class="full">
+        <label for="address">Service address</label>
+        <input type="text" id="address" required placeholder="Street, City, MA">
+      </div>
+      <div>
+        <label for="bins">Number of bins</label>
+        <select id="bins">
+          <option>1 Bin</option>
+          <option>2 Bins</option>
+          <option>3 Bins</option>
+          <option>4+ Bins</option>
+        </select>
+      </div>
+      <div>
+        <label for="frequency">Service frequency</label>
+        <select id="frequency">
+          <option>Grand Opening Special (one-time)</option>
+          <option>One-time cleaning</option>
+          <option>Every 2 weeks</option>
+          <option>Monthly</option>
+        </select>
+      </div>
+      <div class="full">
+        <label for="date">Preferred date</label>
+        <input type="date" id="date">
+      </div>
+      <div class="full">
+        <label for="notes">Notes (gate code, trash day, etc.)</label>
+        <textarea id="notes" placeholder="Anything we should know before we arrive?"></textarea>
+      </div>
+      <div class="submit-row">
+        <button type="submit" class="btn btn-primary" id="submitBtn">📅 Request My Cleaning</button>
+      </div>
+      <div class="form-note">We'll text or call to confirm — no payment required to book.</div>
+      <div id="confirm"></div>
+    </form>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">FAQ</div>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-card">
+        <h3>How long does cleaning take?</h3>
+        <p>Most bin cleanings take around 10-15 minutes.</p>
+      </div>
+      <div class="faq-card">
+        <h3>Do I need to be home?</h3>
+        <p>No. Just leave your bins outside and we handle everything.</p>
+      </div>
+      <div class="faq-card">
+        <h3>Are your products safe?</h3>
+        <p>Yes. We use eco-friendly products safe for families and pets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo"><svg class="leaf" viewBox="0 0 24 24" fill="none"><path d="M4 20C4 12 10 4 20 4C20 14 12 20 4 20Z" fill="#7CB82F"/></svg>Fresh <span class="b" style="color:var(--green);">Bin</span> Services</div>
+        <p>Cleaner bins, fresher homes. Curbside bin cleaning across Massachusetts, done right.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="tel:7745069916">(774) 506-9916</a>
+        <p>Owner: Belighi</p>
+        <p>Serving: Massachusetts</p>
+      </div>
+      <div class="foot-col">
+        <h4>Site</h4>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#book">Book Now</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 Fresh Bin Services. Eco-friendly products · Professional equipment · 100% satisfaction guaranteed.</div>
+  </div>
+</footer>
+
+<a href="tel:7745069916" class="mobile-call">📞 Call Now</a>
+
+<script>
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+
+  // Mobile menu
+  if(burger){
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+  }
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // BOOKING SYSTEM
+  const form = document.getElementById('bookForm');
+  const confirmBox = document.getElementById('confirm');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const bins = document.getElementById('bins').value;
+    const frequency = document.getElementById('frequency').value;
+    const date = document.getElementById('date').value;
+    const notes = document.getElementById('notes').value.trim();
+
+    // Check required information
+    if(!name || !phone || !address){
+      alert("Please complete your name, phone number, and address.");
+      return;
+    }
+
+    // Prevent double click
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = "Sending...";
+
+    // Save booking backup locally
+    const booking = {
+      name: name,
+      phone: phone,
+      address: address,
+      bins: bins,
+      frequency: frequency,
+      date: date,
+      notes: notes,
+      time: new Date().toLocaleString()
+    };
+
+    try{
+      localStorage.setItem("freshBinBooking", JSON.stringify(booking));
+    }catch(err){
+      console.warn("Could not save local backup:", err);
+    }
+
+    // Create SMS message
+    const message =
+`Fresh Bin Services Booking Request
+
+Customer: ${name}
+Phone: ${phone}
+Address: ${address}
+Bins: ${bins}
+Service: ${frequency}
+Preferred Date: ${date || "Not selected"}
+Notes: ${notes || "None"}`;
+
+    const smsURL = `sms:7745069916?body=${encodeURIComponent(message)}`;
+
+    // Show confirmation
+    confirmBox.style.display = "block";
+    confirmBox.innerHTML =
+      `✅ Thanks ${name.split(" ")[0]}! Your cleaning request has been prepared.<br><br>
+      <a href="${smsURL}" style="display:inline-block;background:#7CB82F;color:#0B1A33;padding:12px 18px;border-radius:30px;font-weight:800;">📩 Send Booking Request</a>`;
+
+    confirmBox.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    // Reset button
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = "📅 Request My Cleaning";
+    }, 3000);
+  });
+</script>
+
+</body>
+</html>
